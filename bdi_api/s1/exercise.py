@@ -178,8 +178,16 @@ def get_aircraft_position(icao: str, num_results: int = 1000, page: int = 0) -> 
     """Returns all the known positions of an aircraft ordered by time (asc)
     If an aircraft is not found, return an empty list.
     """
-    # TODO implement and return a list with dictionaries with those values.
-    return [{"timestamp": 1609275898.6, "lat": 30.404617, "lon": -86.476566}]
+    data_file = os.path.join(settings.prepared_dir, "day=20231101", "processed_data.csv")
+
+    if not os.path.exists(data_file):
+        return []
+
+    df = pd.read_csv(data_file)
+    df = df[df["icao"] == icao].sort_values(by="timestamp")
+
+    start_idx, end_idx = page * num_results, (page + 1) * num_results
+    return df.iloc[start_idx:end_idx][["timestamp", "lat", "lon"]].to_dict(orient="records")
 
 
 @s1.get("/aircraft/{icao}/stats")
@@ -190,5 +198,21 @@ def get_aircraft_statistics(icao: str) -> dict:
     * max_ground_speed
     * had_emergency
     """
-    # TODO Gather and return the correct statistics for the requested aircraft
-    return {"max_altitude_baro": 300000, "max_ground_speed": 493, "had_emergency": False}
+     
+    data_file = os.path.join(settings.prepared_dir, "day=20231101", "processed_data.csv")
+
+    if not os.path.exists(data_file):
+        return {}
+
+    df = pd.read_csv(data_file)
+    df = df[df["icao"] == icao]
+
+    if df.empty:
+        return {}
+
+    return {
+        "max_altitude_baro": float(df["altitude_baro"].max()),
+        "max_ground_speed": float(df["ground_speed"].max()),
+        "had_emergency": bool(df["emergency_status"].any()),
+    }
+
