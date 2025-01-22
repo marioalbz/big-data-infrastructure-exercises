@@ -1,0 +1,6 @@
+#!/Users/mariotopia/Desktop/BTS/Big Data Infrastructure/big-data-infrastructure-exercises/.venv/bin/python
+import sys
+from bdi_api.app import main
+
+if __name__ == '__main__':
+    sys.exit(main())
