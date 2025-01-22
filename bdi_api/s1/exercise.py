@@ -11,7 +11,7 @@ from fastapi.params import Query
 from bdi_api.settings import Settings
 
 
-app_config = Settings()
+settings = Settings()
 
 s1 = APIRouter(
     responses={
@@ -55,7 +55,41 @@ def download_data(
     """
     download_dir = os.path.join(settings.raw_dir, "day=20231101")
     base_url = settings.source_url + "/2023/11/01/"
-    # TODO Implement download
+    # Download directory and is clean
+    os.makedirs(download_dir, exist_ok=True)
+    for old_file in os.listdir(download_dir):
+        os.remove(os.path.join(download_dir, old_file))
+
+    try:
+        # Fetch file from source
+        response = requests.get(base_url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        # Filter files
+        files_to_download = [
+            link["href"] for link in soup.find_all("a") if link["href"].endswith(".json.gz")
+        ][:file_limit]
+
+        files_downloaded = 0
+        for file_name in tqdm(files_to_download, desc="Downloading Files"):
+            full_url = urljoin(base_url, file_name)
+            file_response = requests.get(full_url, stream=True)
+
+            if file_response.status_code == 200:
+                output_file = os.path.join(download_dir, file_name[:-3])  # Remove `.gz`
+                with open(output_file, "wb") as f:
+                    f.write(file_response.content)
+                files_downloaded += 1
+            else:
+                print(f"Failed to download: {file_name}")
+
+        return f"Successfully downloaded {files_downloaded} files to {download_dir}"
+
+    except requests.RequestException as e:
+        return f"Error downloading files: {str(e)}"
+    except Exception as e:
+        return f"Unexpected error: {str(e)}"
 
     return "OK"
 
