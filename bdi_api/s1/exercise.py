@@ -66,7 +66,7 @@ def download_data(
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
 
-        # Filter files
+        # Filter files to download
         files_to_download = [
             link["href"] for link in soup.find_all("a") if link["href"].endswith(".json.gz")
         ][:file_limit]
