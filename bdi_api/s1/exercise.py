@@ -55,18 +55,16 @@ def download_data(
     """
     download_dir = os.path.join(settings.raw_dir, "day=20231101")
     base_url = settings.source_url + "/2023/11/01/"
-    # Download directory and is clean
+    
     os.makedirs(download_dir, exist_ok=True)
     for old_file in os.listdir(download_dir):
         os.remove(os.path.join(download_dir, old_file))
 
     try:
-        # Fetch file from source
         response = requests.get(base_url)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
 
-        # Filter files to download
         files_to_download = [
             link["href"] for link in soup.find_all("a") if link["href"].endswith(".json.gz")
         ][:file_limit]
@@ -91,7 +89,6 @@ def download_data(
     except Exception as e:
         return f"Unexpected error: {str(e)}"
 
-    return "OK"
 
 
 @s1.post("/aircraft/prepare")
@@ -113,17 +110,67 @@ def prepare_data() -> str:
 
     Keep in mind that we are downloading a lot of small files, and some libraries might not work well with this!
     """
-    # TODO
-    return "OK"
+    
+    raw_dir = os.path.join(settings.raw_dir, "day=20231101")
+    prepared_dir = os.path.join(settings.prepared_dir, "day=20231101")
+    os.makedirs(prepared_dir, exist_ok=True)
+
+    
+    for old_file in os.listdir(prepared_dir):
+        os.remove(os.path.join(prepared_dir, old_file))
+
+    
+    try:
+        data_frames = []
+
+        
+        for raw_file in os.listdir(raw_dir):
+            if raw_file.endswith(".json"):
+                with open(os.path.join(raw_dir, raw_file), "r") as f:
+                    json_data = json.load(f)
+                    if "aircraft" in json_data:
+                        df = pd.DataFrame(json_data["aircraft"])
+                        df["timestamp"] = json_data["now"]
+                        data_frames.append(df)
+
+        
+        combined_data = pd.concat(data_frames, ignore_index=True)
+        combined_data = combined_data.rename(columns={
+            "hex": "icao",
+            "r": "registration",
+            "t": "aircraft_type",
+            "alt_baro": "altitude_baro",
+            "gs": "ground_speed",
+            "emergency": "emergency_status",
+        })
+        combined_data = combined_data.dropna(subset=["icao", "registration", "aircraft_type"])
+        emergency_list = ["general", "lifeguard", "minfuel", "nordo", "unlawful", "downed", "reserved"]
+        combined_data["emergency_status"] = combined_data["emergency_status"].apply(lambda x: x in emergency_list)
+
+        
+        combined_data.to_csv(os.path.join(prepared_dir, "processed_data.csv"), index=False)
+        return f"Data preparation complete. File saved at {prepared_dir}"
+
+    except Exception as error:
+        return f"Error during data preparation: {str(error)}"
+
 
 
 @s1.get("/aircraft/")
 def list_aircraft(num_results: int = 100, page: int = 0) -> list[dict]:
     """List all the available aircraft, its registration and type ordered by
     icao asc
-    """
-    # TODO
-    return [{"icao": "0d8300", "registration": "YV3382", "type": "LJ31"}]
+    """ 
+    data_file = os.path.join(settings.prepared_dir, "day=20231101", "processed_data.csv")
+
+    if not os.path.exists(data_file):
+        return []
+
+    df = pd.read_csv(data_file)
+    df = df[["icao", "registration", "aircraft_type"]].drop_duplicates().sort_values(by="icao")
+
+    start_idx, end_idx = page * num_results, (page + 1) * num_results
+    return df.iloc[start_idx:end_idx].to_dict(orient="records")
 
 
 @s1.get("/aircraft/{icao}/positions")
