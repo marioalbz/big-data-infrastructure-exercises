@@ -1,12 +1,17 @@
 import os
-from typing import Annotated
-
+import requests
+from typing import List, Annotated
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+import json
+from tqdm import tqdm
+import pandas as pd
 from fastapi import APIRouter, status
 from fastapi.params import Query
-
 from bdi_api.settings import Settings
 
-settings = Settings()
+
+app_config = Settings()
 
 s1 = APIRouter(
     responses={
