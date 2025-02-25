@@ -23,7 +23,7 @@ class TestItCanBeEvaluated:
     Those tests are just to be sure I can evaluate your exercise.
     Don't modify anything from here!
 
-    Make sure all those tests pass with `poetry run pytest` or it will be a 0!
+    Make sure all those tests pass with `poetry run pytest` or it will be a 0!..
     """
 
     def test_download(self, client: TestClient) -> None:
