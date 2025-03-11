@@ -29,6 +29,8 @@ opentelemetry-api = "1.21.0"
 opentelemetry-sdk = "1.21.0"
 opentelemetry-instrumentation-fastapi = "0.42b0"
 # Add your dependencies here
+sqlalchemy = "^2.0.39"
+psycopg2-binary = "^2.9.10"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.5.0"
