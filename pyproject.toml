@@ -31,6 +31,9 @@ opentelemetry-instrumentation-fastapi = "0.42b0"
 # Add your dependencies here
 sqlalchemy = "^2.0.39"
 psycopg2-binary = "^2.9.10"
+pandas = "^2.2.3"
+boto3 = "^1.37.14"
+bs4 = "^0.0.2"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.5.0"
