@@ -12,6 +12,7 @@ settings = Settings()
 db_credentials = DBCredentials()
 s3_client = boto3.client("s3")
 BUCKET_NAME = "bdi-aircraft-marioalbz"
+RAW_S3_PREFIX = "raw/day=20231101/"  # Define the S3 prefix for raw data
 s7 = APIRouter(prefix="/api/s7", tags=["s7"])
 
 # Database connection using context manager
@@ -47,29 +48,47 @@ def create_database_tables():
             """)
             conn.commit()
 
-# Read and process files from S3
+# Read and process files from S3, filtering by the raw data prefix
 def get_all_files_from_s3():
     all_data = []
-    response = s3_client.list_objects_v2(Bucket=BUCKET_NAME)
-    
+    response = s3_client.list_objects_v2(Bucket=BUCKET_NAME, Prefix=RAW_S3_PREFIX)
+
     for obj in response.get("Contents", []):
         file_key = obj["Key"]
-        data = get_file_from_s3(file_key)
-        all_data.extend(data)
+        if file_key.startswith(RAW_S3_PREFIX) and file_key != RAW_S3_PREFIX:  # Ensure it's within the prefix and not the prefix itself
+            data = get_file_from_s3(file_key)
+            if isinstance(data, list):
+                all_data.extend(data)
+            elif isinstance(data, dict) and "aircraft" in data:
+                all_data.extend(data["aircraft"])
 
     return all_data
 
 def get_file_from_s3(file_key):
     try:
         obj = s3_client.get_object(Bucket=BUCKET_NAME, Key=file_key)
-        with gzip.GzipFile(fileobj=io.BytesIO(obj["Body"].read())) as gz:
-            data = json.loads(gz.read().decode("utf-8"))
-    except gzip.BadGzipFile:
-        data = json.loads(obj["Body"].read().decode("utf-8"))
+        file_content = obj["Body"].read()
+
+        try:
+            # Try to decompress as gzip
+            with gzip.GzipFile(fileobj=io.BytesIO(file_content)) as gz:
+                data = json.loads(gz.read().decode("utf-8"))
+            print(f"Successfully read and decompressed gzipped file: {file_key}")
+        except gzip.BadGzipFile:
+            # If not gzip, assume plain JSON
+            data = json.loads(file_content.decode("utf-8"))
+            print(f"Successfully read plain JSON file: {file_key}")
+        except json.JSONDecodeError as e:
+            print(f"JSONDecodeError for file {file_key}: {e}")
+            print(f"First 50 characters of content: {file_content[:50].decode('utf-8', errors='ignore')}")
+            raise
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to read {file_key}: {str(e)}")
+
+        return data
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to read {file_key}: {str(e)}")
-    
-    return data.get("aircraft", data) if isinstance(data, dict) else data
+        raise HTTPException(status_code=500, detail=f"Error getting object {file_key} from S3: {str(e)}")
 
 # Insert data into PostgreSQL
 def save_to_database(data):
@@ -93,9 +112,14 @@ def save_to_database(data):
 
         # Collect position data if available
         if "lat" in record and "lon" in record:
+            timestamp_str = settings.source_url.split('/')[-2] + settings.source_url.split('/')[-1] + '000000'
+            try:
+                timestamp = int(timestamp_str)
+            except ValueError:
+                timestamp = 0  # Handle potential errors in timestamp conversion
             position_data.append((
                 icao,
-                record.get("timestamp", 0),
+                timestamp,
                 record["lat"],
                 record["lon"],
                 float(record.get("altitude_baro", 0)),
@@ -121,7 +145,7 @@ def save_to_database(data):
                     VALUES (%s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (icao, timestamp) DO NOTHING;
                 """, position_data)
-                
+
             conn.commit()
 
 # Endpoint to prepare data from S3
@@ -130,7 +154,7 @@ def prepare_data():
     create_database_tables()
     data = get_all_files_from_s3()
     if not data:
-        raise HTTPException(status_code=404, detail="No aircraft data found in S3")
+        raise HTTPException(status_code=404, detail="No aircraft data found in S3 under the prefix raw/day=20231101/")
     save_to_database(data)
     return {"status": "success", "message": "Aircraft data saved successfully"}
 
@@ -153,10 +177,10 @@ def get_aircraft_position(icao: str, num_results: int = 1000, page: int = 0):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT timestamp, lat, lon 
-                FROM aircraft_positions 
-                WHERE icao = %s 
-                ORDER BY timestamp 
+                SELECT timestamp, lat, lon
+                FROM aircraft_positions
+                WHERE icao = %s
+                ORDER BY timestamp
                 LIMIT %s OFFSET %s
                 """,
                 (icao, num_results, page * num_results)
@@ -171,11 +195,11 @@ def get_aircraft_statistics(icao: str):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT 
+                SELECT
                     COALESCE(MAX(altitude_baro), 0),
                     COALESCE(MAX(ground_speed), 0),
                     COALESCE(BOOL_OR(emergency), FALSE)
-                FROM aircraft_positions 
+                FROM aircraft_positions
                 WHERE icao = %s
                 """,
                 (icao,)

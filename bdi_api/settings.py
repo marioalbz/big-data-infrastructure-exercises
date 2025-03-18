@@ -1,16 +1,17 @@
 from os.path import dirname, join
-from dotenv import load_dotenv
 import os
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 import bdi_api
 
-# Cargar el archivo .env
-load_dotenv()
-
 PROJECT_DIR = dirname(dirname(bdi_api.__file__))
 
-
+class DBCredentials:
+    database: str = "bdi_aircraft"
+    username: str = "mario"
+    password: str = "your_secure_password"  # MAKE SURE THIS MATCHES YOUR POSTGRES PASSWORD
+    host: str = "localhost"
+    port: int = 5432
 
 class Settings(BaseSettings):
     source_url: str = Field(
