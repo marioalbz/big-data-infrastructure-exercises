@@ -196,20 +196,20 @@ def get_aircraft_statistics(icao: str):
             cur.execute(
                 """
                 SELECT
-                    COALESCE(MAX(altitude_baro), 0),
-                    COALESCE(MAX(ground_speed), 0),
-                    COALESCE(BOOL_OR(emergency), FALSE)
+                    MAX(altitude_baro),
+                    MAX(ground_speed),
+                    BOOL_OR(emergency)
                 FROM aircraft_positions
                 WHERE icao = %s
                 """,
                 (icao,)
             )
             row = cur.fetchone()
-            if row:
+            if row and any(r is not None for r in row):
                 return {
                     "max_altitude_baro": row[0],
                     "max_ground_speed": row[1],
-                    "had_emergency": row[2]
+                    "had_emergency": row[2] or False  # Handle potential None for BOOL_OR
                 }
             else:
                 raise HTTPException(status_code=404, detail=f"No data found for ICAO: {icao}")
