@@ -2,6 +2,7 @@ import io
 import gzip
 import json
 import boto3
+import os  # Add this
 from fastapi import APIRouter, HTTPException
 from bdi_api.settings import DBCredentials, Settings
 import psycopg2
@@ -17,13 +18,7 @@ s7 = APIRouter(prefix="/api/s7", tags=["s7"])
 
 # Database connection using context manager
 def connect_to_database():
-    return psycopg2.connect(
-        dbname=db_credentials.database,
-        user=db_credentials.username,
-        password=db_credentials.password,
-        host=db_credentials.host,
-        port=db_credentials.port
-    )
+    return psycopg2.connect(os.getenv("DATABASE_URL"))
 
 # Create and validate database tables
 def create_database_tables():
