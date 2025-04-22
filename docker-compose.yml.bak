@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  scheduler:
+    image: apache/airflow:2.7.3
+    command: ["scheduler"]
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres@host.docker.internal:5433/airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ~/Desktop/BTS/big_data_infrastructure/big-data-infrastructure-exercises/data:/opt/airflow/data
+    restart: always
+    network_mode: host
+
+  webserver:
+    image: apache/airflow:2.7.3
+    command: ["webserver"]
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres@host.docker.internal:5433/airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ~/Desktop/BTS/big_data_infrastructure/big-data-infrastructure-exercises/data:/opt/airflow/data
+    ports:
+      - "8081:8080"
+    restart: always
+    network_mode: host

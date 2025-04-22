@@ -1,0 +1,7 @@
+project:
+  name: big-data-infrastructure-exercises
+airflow:
+  postgres:
+    enabled: false  # Disable the default Postgres container
+  environment:
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://postgres@host.docker.internal:5433/airflow"

@@ -1,0 +1,115 @@
+[2025-04-22T10:39:16.940+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: readsb_hist_dag.download_readsb_hist scheduled__2024-11-01T00:00:00+00:00 [queued]>
+[2025-04-22T10:39:16.945+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: readsb_hist_dag.download_readsb_hist scheduled__2024-11-01T00:00:00+00:00 [queued]>
+[2025-04-22T10:39:16.945+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-04-22T10:39:16.952+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): download_readsb_hist> on 2024-11-01 00:00:00+00:00
+[2025-04-22T10:39:16.954+0000] {standard_task_runner.py:57} INFO - Started process 1287 to run task
+[2025-04-22T10:39:16.957+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'readsb_hist_dag', 'download_readsb_hist', 'scheduled__2024-11-01T00:00:00+00:00', '--job-id', '211', '--raw', '--subdir', 'DAGS_FOLDER/readsb_hist_dag.py', '--cfg-path', '/tmp/tmpn_3kyz0g']
+[2025-04-22T10:39:16.958+0000] {standard_task_runner.py:85} INFO - Job 211: Subtask download_readsb_hist
+[2025-04-22T10:39:17.042+0000] {task_command.py:416} INFO - Running <TaskInstance: readsb_hist_dag.download_readsb_hist scheduled__2024-11-01T00:00:00+00:00 [running]> on host 4d88e7682171
+[2025-04-22T10:39:17.164+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='readsb_hist_dag' AIRFLOW_CTX_TASK_ID='download_readsb_hist' AIRFLOW_CTX_EXECUTION_DATE='2024-11-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-11-01T00:00:00+00:00'
+[2025-04-22T10:39:17.181+0000] {credentials.py:1124} INFO - Found credentials in environment variables.
+[2025-04-22T10:39:29.866+0000] {logging_mixin.py:154} INFO - [FOUND] 17280 files in index.
+[2025-04-22T10:39:39.008+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000000Z.json.gz
+[2025-04-22T10:39:41.652+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000005Z.json.gz
+[2025-04-22T10:39:44.020+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000010Z.json.gz
+[2025-04-22T10:39:46.146+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000015Z.json.gz
+[2025-04-22T10:39:48.587+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000020Z.json.gz
+[2025-04-22T10:39:49.629+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000025Z.json.gz
+[2025-04-22T10:39:52.196+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000030Z.json.gz
+[2025-04-22T10:39:53.642+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000035Z.json.gz
+[2025-04-22T10:39:55.883+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000040Z.json.gz
+[2025-04-22T10:39:58.470+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000045Z.json.gz
+[2025-04-22T10:40:00.454+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000050Z.json.gz
+[2025-04-22T10:40:02.136+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000055Z.json.gz
+[2025-04-22T10:40:03.219+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000100Z.json.gz
+[2025-04-22T10:40:05.573+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000105Z.json.gz
+[2025-04-22T10:40:07.734+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000110Z.json.gz
+[2025-04-22T10:40:09.777+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000115Z.json.gz
+[2025-04-22T10:40:10.856+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000120Z.json.gz
+[2025-04-22T10:40:11.973+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000125Z.json.gz
+[2025-04-22T10:40:13.006+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000130Z.json.gz
+[2025-04-22T10:40:14.142+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000135Z.json.gz
+[2025-04-22T10:40:16.605+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000140Z.json.gz
+[2025-04-22T10:40:19.294+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000145Z.json.gz
+[2025-04-22T10:40:21.467+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000150Z.json.gz
+[2025-04-22T10:40:23.443+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000155Z.json.gz
+[2025-04-22T10:40:34.277+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000200Z.json.gz
+[2025-04-22T10:40:35.299+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000205Z.json.gz
+[2025-04-22T10:40:36.484+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000210Z.json.gz
+[2025-04-22T10:40:38.913+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000215Z.json.gz
+[2025-04-22T10:40:40.134+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000220Z.json.gz
+[2025-04-22T10:40:41.822+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000225Z.json.gz
+[2025-04-22T10:40:43.665+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000230Z.json.gz
+[2025-04-22T10:40:44.782+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000235Z.json.gz
+[2025-04-22T10:40:45.934+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000240Z.json.gz
+[2025-04-22T10:40:49.178+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000245Z.json.gz
+[2025-04-22T10:40:52.601+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000250Z.json.gz
+[2025-04-22T10:40:57.836+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000255Z.json.gz
+[2025-04-22T10:41:02.632+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000300Z.json.gz
+[2025-04-22T10:41:06.702+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000305Z.json.gz
+[2025-04-22T10:41:10.305+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000310Z.json.gz
+[2025-04-22T10:41:15.971+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000315Z.json.gz
+[2025-04-22T10:41:20.552+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000320Z.json.gz
+[2025-04-22T10:41:25.805+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000325Z.json.gz
+[2025-04-22T10:41:45.808+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000330Z.json.gz
+[2025-04-22T10:41:48.387+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000335Z.json.gz
+[2025-04-22T10:41:50.626+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000340Z.json.gz
+[2025-04-22T10:41:51.855+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000345Z.json.gz
+[2025-04-22T10:41:53.202+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000350Z.json.gz
+[2025-04-22T10:41:54.397+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000355Z.json.gz
+[2025-04-22T10:41:56.362+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000400Z.json.gz
+[2025-04-22T10:41:58.213+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000405Z.json.gz
+[2025-04-22T10:42:00.091+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000410Z.json.gz
+[2025-04-22T10:42:01.230+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000415Z.json.gz
+[2025-04-22T10:42:02.353+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000420Z.json.gz
+[2025-04-22T10:42:04.178+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000425Z.json.gz
+[2025-04-22T10:42:05.227+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000430Z.json.gz
+[2025-04-22T10:42:06.356+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000435Z.json.gz
+[2025-04-22T10:42:07.514+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000440Z.json.gz
+[2025-04-22T10:42:08.717+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000445Z.json.gz
+[2025-04-22T10:42:09.730+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000450Z.json.gz
+[2025-04-22T10:42:11.908+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000455Z.json.gz
+[2025-04-22T10:42:13.880+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000500Z.json.gz
+[2025-04-22T10:42:16.046+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000505Z.json.gz
+[2025-04-22T10:42:18.185+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000510Z.json.gz
+[2025-04-22T10:42:20.871+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000515Z.json.gz
+[2025-04-22T10:42:22.915+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000520Z.json.gz
+[2025-04-22T10:42:25.136+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000525Z.json.gz
+[2025-04-22T10:42:26.142+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000530Z.json.gz
+[2025-04-22T10:42:28.181+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000535Z.json.gz
+[2025-04-22T10:42:29.431+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000540Z.json.gz
+[2025-04-22T10:42:31.302+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000545Z.json.gz
+[2025-04-22T10:42:33.467+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000550Z.json.gz
+[2025-04-22T10:42:35.614+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000555Z.json.gz
+[2025-04-22T10:42:36.935+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000600Z.json.gz
+[2025-04-22T10:42:38.207+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000605Z.json.gz
+[2025-04-22T10:42:39.681+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000610Z.json.gz
+[2025-04-22T10:42:41.036+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000615Z.json.gz
+[2025-04-22T10:42:42.306+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000620Z.json.gz
+[2025-04-22T10:42:43.664+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000625Z.json.gz
+[2025-04-22T10:42:44.935+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000630Z.json.gz
+[2025-04-22T10:42:46.188+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000635Z.json.gz
+[2025-04-22T10:42:47.683+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000640Z.json.gz
+[2025-04-22T10:42:48.881+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000645Z.json.gz
+[2025-04-22T10:42:50.692+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000650Z.json.gz
+[2025-04-22T10:42:51.985+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000655Z.json.gz
+[2025-04-22T10:42:53.356+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000700Z.json.gz
+[2025-04-22T10:42:54.663+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000705Z.json.gz
+[2025-04-22T10:42:56.555+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000710Z.json.gz
+[2025-04-22T10:42:57.689+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000715Z.json.gz
+[2025-04-22T10:42:59.211+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000720Z.json.gz
+[2025-04-22T10:43:01.263+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000725Z.json.gz
+[2025-04-22T10:43:02.540+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000730Z.json.gz
+[2025-04-22T10:43:03.728+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000735Z.json.gz
+[2025-04-22T10:43:13.071+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000740Z.json.gz
+[2025-04-22T10:43:15.510+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000745Z.json.gz
+[2025-04-22T10:43:17.118+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000750Z.json.gz
+[2025-04-22T10:43:19.398+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000755Z.json.gz
+[2025-04-22T10:43:20.543+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000800Z.json.gz
+[2025-04-22T10:43:31.621+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000805Z.json.gz
+[2025-04-22T10:43:33.810+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000810Z.json.gz
+[2025-04-22T10:43:35.840+0000] {logging_mixin.py:154} INFO - [S3] Uploaded to s3://bdi-aircraft-marioalbz/raw/day=20241101/000815Z.json.gz
+[2025-04-22T10:43:35.994+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-04-22T10:43:36.037+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=readsb_hist_dag, task_id=download_readsb_hist, execution_date=20241101T000000, start_date=20250422T103916, end_date=20250422T104336
+[2025-04-22T10:43:36.072+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-04-22T10:43:36.115+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

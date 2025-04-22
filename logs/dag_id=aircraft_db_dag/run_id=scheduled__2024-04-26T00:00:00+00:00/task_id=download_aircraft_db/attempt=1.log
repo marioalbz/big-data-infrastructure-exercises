@@ -1,0 +1,14 @@
+[2025-04-22T16:07:25.527+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: aircraft_db_dag.download_aircraft_db scheduled__2024-04-26T00:00:00+00:00 [queued]>
+[2025-04-22T16:07:25.533+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: aircraft_db_dag.download_aircraft_db scheduled__2024-04-26T00:00:00+00:00 [queued]>
+[2025-04-22T16:07:25.533+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-04-22T16:07:25.539+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): download_aircraft_db> on 2024-04-26 00:00:00+00:00
+[2025-04-22T16:07:25.542+0000] {standard_task_runner.py:57} INFO - Started process 3255 to run task
+[2025-04-22T16:07:25.544+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'aircraft_db_dag', 'download_aircraft_db', 'scheduled__2024-04-26T00:00:00+00:00', '--job-id', '393', '--raw', '--subdir', 'DAGS_FOLDER/aircraft_db_dag.py', '--cfg-path', '/tmp/tmpu_mx_wur']
+[2025-04-22T16:07:25.545+0000] {standard_task_runner.py:85} INFO - Job 393: Subtask download_aircraft_db
+[2025-04-22T16:07:25.611+0000] {task_command.py:416} INFO - Running <TaskInstance: aircraft_db_dag.download_aircraft_db scheduled__2024-04-26T00:00:00+00:00 [running]> on host 63ec993dd488
+[2025-04-22T16:07:25.715+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='aircraft_db_dag' AIRFLOW_CTX_TASK_ID='download_aircraft_db' AIRFLOW_CTX_EXECUTION_DATE='2024-04-26T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-04-26T00:00:00+00:00'
+[2025-04-22T16:07:25.730+0000] {credentials.py:1124} INFO - Found credentials in environment variables.
+[2025-04-22T16:09:33.292+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-04-22T16:09:33.496+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=aircraft_db_dag, task_id=download_aircraft_db, execution_date=20240426T000000, start_date=20250422T160725, end_date=20250422T160933
+[2025-04-22T16:09:33.618+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-04-22T16:09:33.704+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,39 @@
+[2025-04-22T11:43:43.260+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: aircraft_db_dag.download_aircraft_db scheduled__2023-12-12T00:00:00+00:00 [queued]>
+[2025-04-22T11:43:43.265+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: aircraft_db_dag.download_aircraft_db scheduled__2023-12-12T00:00:00+00:00 [queued]>
+[2025-04-22T11:43:43.265+0000] {taskinstance.py:1361} INFO - Starting attempt 2 of 2
+[2025-04-22T11:43:43.273+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): download_aircraft_db> on 2023-12-12 00:00:00+00:00
+[2025-04-22T11:43:43.276+0000] {standard_task_runner.py:57} INFO - Started process 2418 to run task
+[2025-04-22T11:43:43.280+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'aircraft_db_dag', 'download_aircraft_db', 'scheduled__2023-12-12T00:00:00+00:00', '--job-id', '247', '--raw', '--subdir', 'DAGS_FOLDER/aircraft_db_dag.py', '--cfg-path', '/tmp/tmp6s00s8i1']
+[2025-04-22T11:43:43.282+0000] {standard_task_runner.py:85} INFO - Job 247: Subtask download_aircraft_db
+[2025-04-22T11:43:43.352+0000] {task_command.py:416} INFO - Running <TaskInstance: aircraft_db_dag.download_aircraft_db scheduled__2023-12-12T00:00:00+00:00 [running]> on host 4d88e7682171
+[2025-04-22T11:43:43.454+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='aircraft_db_dag' AIRFLOW_CTX_TASK_ID='download_aircraft_db' AIRFLOW_CTX_EXECUTION_DATE='2023-12-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-12-12T00:00:00+00:00'
+[2025-04-22T11:43:43.473+0000] {credentials.py:1124} INFO - Found credentials in environment variables.
+[2025-04-22T11:43:51.632+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/aircraft_db_dag.py", line 83, in download_and_process_registry
+    s3.upload_fileobj(BytesIO(raw_bytes), S3_BUCKET, s3_raw_key)
+  File "/home/airflow/.local/lib/python3.8/site-packages/boto3/s3/inject.py", line 636, in upload_fileobj
+    return future.result()
+  File "/home/airflow/.local/lib/python3.8/site-packages/s3transfer/futures.py", line 103, in result
+    return self._coordinator.result()
+  File "/home/airflow/.local/lib/python3.8/site-packages/s3transfer/futures.py", line 266, in result
+    raise self._exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/s3transfer/tasks.py", line 139, in __call__
+    return self._execute_main(kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/s3transfer/tasks.py", line 162, in _execute_main
+    return_value = self._main(**kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/s3transfer/tasks.py", line 348, in _main
+    response = client.create_multipart_upload(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 535, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 980, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (AccessDenied) when calling the CreateMultipartUpload operation: User: arn:aws:sts::839031116189:assumed-role/voclabs/user3816734=Mario_Albornoz is not authorized to perform: s3:PutObject on resource: "arn:aws:s3:::bdi-aircraft-marioalbz/raw/registry/day=20231212/basic-ac-db.json.gz" with an explicit deny in an identity-based policy
+[2025-04-22T11:43:51.684+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=aircraft_db_dag, task_id=download_aircraft_db, execution_date=20231212T000000, start_date=20250422T114343, end_date=20250422T114351
+[2025-04-22T11:43:51.705+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 247 for task download_aircraft_db (An error occurred (AccessDenied) when calling the CreateMultipartUpload operation: User: arn:aws:sts::839031116189:assumed-role/voclabs/user3816734=Mario_Albornoz is not authorized to perform: s3:PutObject on resource: "arn:aws:s3:::bdi-aircraft-marioalbz/raw/registry/day=20231212/basic-ac-db.json.gz" with an explicit deny in an identity-based policy; 2418)
+[2025-04-22T11:43:51.758+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2025-04-22T11:43:51.821+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

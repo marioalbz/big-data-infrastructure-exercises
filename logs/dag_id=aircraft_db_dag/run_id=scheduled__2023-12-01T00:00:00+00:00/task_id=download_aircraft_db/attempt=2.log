@@ -1,0 +1,12 @@
+[2025-04-22T11:18:09.123+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: aircraft_db_dag.download_aircraft_db scheduled__2023-12-01T00:00:00+00:00 [queued]>
+[2025-04-22T11:18:09.128+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: aircraft_db_dag.download_aircraft_db scheduled__2023-12-01T00:00:00+00:00 [queued]>
+[2025-04-22T11:18:09.128+0000] {taskinstance.py:1361} INFO - Starting attempt 2 of 2
+[2025-04-22T11:18:09.135+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): download_aircraft_db> on 2023-12-01 00:00:00+00:00
+[2025-04-22T11:18:09.138+0000] {standard_task_runner.py:57} INFO - Started process 1910 to run task
+[2025-04-22T11:18:09.142+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'aircraft_db_dag', 'download_aircraft_db', 'scheduled__2023-12-01T00:00:00+00:00', '--job-id', '225', '--raw', '--subdir', 'DAGS_FOLDER/aircraft_db_dag.py', '--cfg-path', '/tmp/tmp_hr3e_0v']
+[2025-04-22T11:18:09.143+0000] {standard_task_runner.py:85} INFO - Job 225: Subtask download_aircraft_db
+[2025-04-22T11:18:09.215+0000] {task_command.py:416} INFO - Running <TaskInstance: aircraft_db_dag.download_aircraft_db scheduled__2023-12-01T00:00:00+00:00 [running]> on host 4d88e7682171
+[2025-04-22T11:18:09.305+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='aircraft_db_dag' AIRFLOW_CTX_TASK_ID='download_aircraft_db' AIRFLOW_CTX_EXECUTION_DATE='2023-12-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-12-01T00:00:00+00:00'
+[2025-04-22T11:18:09.318+0000] {credentials.py:1124} INFO - Found credentials in environment variables.
+[2025-04-22T11:18:26.062+0000] {local_task_job_runner.py:228} INFO - Task exited with return code -9
+[2025-04-22T11:18:26.194+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,30 @@
+services:
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["scheduler"]
+    env_file:
+      - .env
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ~/Desktop/BTS/big_data_infrastructure/big-data-infrastructure-exercises/data:/opt/airflow/data
+    restart: always
+
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["webserver"]
+    env_file:
+      - .env
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ~/Desktop/BTS/big_data_infrastructure/big-data-infrastructure-exercises/data:/opt/airflow/data
+    ports:
+      - "8080:8080"
+    restart: always
